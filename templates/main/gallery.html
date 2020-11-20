@@ -1,0 +1,43 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %} 
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+    <div id="contact-sec"   >
+           <div class="overlay">
+ <div class="container set-pad">
+      <div class="row text-center">
+                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                     <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line" >GALLERY</h1>
+                     <p data-scroll-reveal="enter from the bottom after 0.3s">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                         </p>
+                 </div>
+             </div>
+		 </div>
+ </div>
+  </div>
+ <hr />
+  <div class="container" style="background: radial-gradient(circle, #3f51b500 0%, #3F51B5 100%);">
+            <div class="row"> 
+               {% for photos in photo %}
+                <div class="col-lg-12 well" style="">
+                  {% if photos.thumbnail %}
+                    <img src="{{ photos.thumbnail.url }}" class="img-rounded img-fluid img-responsive" width="100%" height="100%" />
+                    
+                    <center>
+                      <figcaption class="text-primary h3">{{photos.Room_type|upper}} ROOM</figcaption><br />
+                     <a href="/search/" class="btn btn-primary btn-xs">Book Now!</a>
+                    </center>
+
+                    {% endif %}
+
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+{% endblock %}

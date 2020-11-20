@@ -1,0 +1,29 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content  %}
+
+<div class="container">
+	<div class="row">
+		<div class="">
+		 <h1>Book List</h1>
+
+		    {% if profile_list %}
+		    <ul>
+
+		      {% for profile in profile_list %}
+		      <li>
+		        <a href="{{profile.get_absolute_url}}">{{ profile.user }}</a> ({{profile.location}})
+		      </li>
+		      {% endfor %}
+
+		    </ul>
+
+		    {% else %}
+		      <p>There are no books in the library.</p>
+		    {% endif %}       
+
+		</div>
+	</div>
+</div>
+{% endblock%}

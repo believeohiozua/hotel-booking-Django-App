@@ -1,0 +1,17 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content  %}
+
+<div class="container" style="padding-top: 100px; padding-bottom:60px;">
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3">
+			<form method="POST" action="." enctype="multipart/form-data">
+			    {% csrf_token %}
+			    {{ form|crispy }}
+			    <center><button class="btn btn-primary btn-sm" type="Update">Update</button></center>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock%}

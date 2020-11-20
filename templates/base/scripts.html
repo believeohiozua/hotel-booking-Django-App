@@ -1,0 +1,21 @@
+﻿{% load staticfiles %}
+<script src="https://js.stripe.com/v3/"></script>
+<!--  Jquery Core Script -->
+<script src="{% static 'assets/js/jquery-1.10.2.js'%}"></script>
+<!--  Core Bootstrap Script -->
+<script src="{% static 'assets/js/bootstrap.js'%}"></script>
+<!--  Flexslider Scripts --> 
+<script src="{% static 'assets/js/jquery.flexslider.js'%}"></script>
+<!--  Scrolling Reveal Script -->
+<script src="{% static 'assets/js/scrollReveal.js'%}"></script>
+<!--  Scroll Scripts --> 
+<script src="{% static 'assets/js/jquery.easing.min.js'%}"></script>
+<!--  Custom Scripts --> 
+<script src="{% static 'assets/js/custom.js'%}"></script>
+<script type="text/javascript">
+	window.addEventListener('load', function(){
+		const loader = document.querySelector('.loader');
+		loader.className += ' hidden';
+	});
+</script>
+

@@ -1,0 +1,367 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content  %}
+
+<div class="home-sec" id="home" >
+    <div class="overlay">
+        <div class="container">
+           <div class="row text-center">
+               <div class="col-md-6" id="room-slide">
+                <div class="flexslider set-flexi" id="main-section">
+                    <ul class="slides move-me">
+                       {% for suite in Rooms %}
+                       {%if suite.Room_type == 'Single' %}
+                        <li>
+                            <h3>Your Comfort is Our Satisfaction</h3>
+                          <img src="{{suite.thumbnail.url}}" class="img-rounded img-responsive" id="slide-img"/>
+                             <hr /><p class="h2"><a  href="/search/">{{suite.Room_type|upper}} ROOM</a></p>
+                        </li>
+                        {% endif %}
+                        {%if suite.Room_type == 'Double' %}
+                        <li>
+                            <h3>Your Comfort is Our Satisfaction</h3>
+                          <img src="{{suite.thumbnail.url}}" class="img-rounded img-responsive" id="slide-img"/>
+                             <hr /><p class="h2"><a  href="/search/">{{suite.Room_type|upper}} ROOM</a></p>
+                        </li>
+                        {% endif %}
+                        {%if suite.Room_type == 'Triple' %}
+                        <li>
+                            <h3>Your Comfort is Our Satisfaction</h3>
+                          <img src="{{suite.thumbnail.url}}" class="img-rounded img-responsive" id="slide-img"/>
+                             <hr /><p class="h2"><a  href="/search/">{{suite.Room_type|upper}} ROOM</a></p>
+                        </li>
+                        {% endif %}
+                        {%if suite.Room_type == 'Quadruple' %}
+                        <li>
+                            <h3>Your Comfort is Our Satisfaction</h3>
+                          <img src="{{suite.thumbnail.url}}" class="img-rounded img-responsive" id="slide-img"/>
+                             <hr /><p class="h2"><a  href="/search/">{{suite.Room_type|upper}} ROOM</a></p>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+<div class="col-md-6 flexslider set-flexi" id="main-section">
+<div id="index-profile">
+{% if request.user.is_authenticated and  request.user.profile.user %}
+  <a href="/profile/{{ request.user.profile.pk }}">
+    {% if request.user.profile.photo %}
+       <img src="{{ request.user.profile.photo.url }}" class="pull-left img-rounded img-responsive" id=""/>
+               {%  else %}
+       <img src="{% static 'assets/img/avatar.jpg'%}" class="pull-left img-rounded img-responsive" style="width:135px;"/>
+               {% endif %}
+  </a>
+        <p class="h5">Welcome: <a href="/profile/{{ request.user.profile.pk }}">
+          <b class="h3" style="color: #fff;">@{{ request.user.profile.user}}</b></a>
+        </p>
+        <p><a class="btn btn-info btn-xs" style="color: white" href="/profile/{{ request.user.profile.pk }}">
+          <b class="h4">Dashbord</b></a>
+        </p>
+        {% else %}
+          <p class="h4">Be Our Guest </p>
+            <p class="h4"><a href="{% url 'account_signup' %}"><b>Sign up</b></a></p>
+             <p>And Enjoy More!</p>
+        {% endif %}
+
+</div>
+<hr />
+    <center id="searcher">
+      <button class="open-button btn btn-warning btn-xl text-center" onclick="openForm()">Book A Reservation Today!</button>
+        <div class="form-popup" id="myForm">
+
+            <form action="{% url 'hotel-list' %}" class="search-form form-group text-center">
+              <center id="pad-form">
+                 <div class="form-group">
+                      <label for="date_from">From</label>
+                      <input class="form-control text-center" min="{{today}}" required="required" type="date" data-date-inline-picker="true" name="from" id="date_from" value="{{today}}"/>
+                  </div>
+                  <div class="form-group">
+                       <label for="date_to">To</label>
+                         <input class="form-control text-center" required="required" type="date" name="to" id="date_to" value="{{nextday}}" />
+                  </div>
+                  <label for="pop_no">Number of Guest</label>
+                  <div class="form-control">
+                            <select name="q" id="pop_no">
+                                {% for pop in pop %}
+                                  <option value="{{pop}}">{{pop}}</option>
+                                {% endfor %}
+                            </select>
+                  </div>
+                    <div><br /> <br />
+                        <input class="btn-primary btn-xl" type="submit" value=" Search " />
+                        <br><br>
+                        <button type="button" class="btn btn-danger btn-xs" onclick="closeForm()">Close</button>
+                      </div>
+                </center>
+              </form>
+          </div>
+    </center>
+              <script>
+                      function openForm() {
+                          document.getElementById("myForm").style.display = "block";
+                      }
+
+                      function closeForm() {
+                          document.getElementById("myForm").style.display = "none";
+                      }
+              </script>
+           </div>
+        </div>
+      </div>
+   </div>
+</div>
+
+  <div  class="tag-line" >
+       <div class="container">
+         <div class="row  text-center" >
+             <div class="col-lg-12  col-md-12 col-sm-12">
+                <p data-scroll-reveal="enter from the bottom after 0.1s" class="section-text text-info text-center">
+                    <i class="fa fa-circle-o-notch"></i>
+                      <b>&emsp;BELCHAPP HOTELS AND SUITE&emsp;</b>
+                    <i class="fa fa-circle-o-notch"></i>
+                </p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div id="course-sec" class="container set-pad">
+    <div class="row text-center">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+            <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line"> ABOUT US </h1>
+            <p data-scroll-reveal="enter from the bottom after 0.3s">
+             Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+               Aenean commodo.
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+               Aenean commodo.
+              </p>
+        </div>
+    </div>
+
+  <div class="row set-row-pad" >
+  <div class="col-lg-6 col-md-6 col-sm-6 " data-scroll-reveal="enter from the bottom after 0.4s" >
+        <img src="{% static 'assets/img/buildings.jpg'%}" class="img-thumbnail" />
+  </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+          <div class="panel-group" id="accordion">
+               <div class="panel panel-default" data-scroll-reveal="enter from the bottom after 0.5s">
+                   <div class="panel-heading" >
+                       <h4 class="panel-title">
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="collapsed">
+                         <strong>   010+</strong> SINGLE ROOMS
+                           </a>
+                       </h4>
+                   </div>
+                   <div id="collapse1" class="panel-collapse collapse" style="height: 0px;">
+                       <div class="panel-body">
+                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam. Nulla eget condimentum mauris, eget tincidunt est.</p>
+                       </div>
+                   </div>
+               </div>
+               <div class="panel panel-default" data-scroll-reveal="enter from the bottom after 0.7s">
+                   <div class="panel-heading">
+                       <h4 class="panel-title">
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="collapsed">
+                             <strong>   005+</strong> DOUBLE ROOMS
+                           </a>
+                       </h4>
+                   </div>
+                   <div id="collapse2" class="panel-collapse collapse" style="height: 0px;">
+                       <div class="panel-body">
+                           <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam. Nulla eget condimentum mauris, eget tincidunt est.
+                           </p>
+                       </div>
+                   </div>
+               </div>
+               <div class="panel panel-default" data-scroll-reveal="enter from the bottom after 0.9s">
+                   <div class="panel-heading">
+                       <h4 class="panel-title">
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="collapsed">
+                               <strong>   004+</strong> TRIPPLES
+                           </a>
+                       </h4>
+                   </div>
+                   <div id="collapse3" class="panel-collapse collapse"  style="height: 0px;">
+                       <div class="panel-body">
+                           <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam. Nulla eget condimentum mauris, eget tincidunt est.
+                           </p>
+                       </div>
+                   </div>
+               </div>
+               <div class="panel panel-default" data-scroll-reveal="enter from the bottom after 0.11s">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" class="collapsed">
+                              <strong>   006+</strong> DOUBLE ROOMS
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse7" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body">
+                            <p>
+                               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis egestas mauris ut vehicula. Cras viverra ac orci ac aliquam. Nulla eget condimentum mauris, eget tincidunt est.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+           </div>
+          <div class="alert alert-info" data-scroll-reveal="enter from the bottom after 1.1s" >
+              <span style="font-size:40px;">
+                 <strong> +Bar|Gym|Pool </strong>
+                  <hr />
+                 Event Centers
+              </span>
+          </div>
+      </div>
+  </div>
+</div>
+
+    <div id="faculty-sec" >
+    <div class="container set-pad">
+             <div class="row text-center">
+                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                     <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line">OUR SUITE</h1>
+                     <p data-scroll-reveal="enter from the bottom after 0.3s">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                     </p>
+                 </div>
+             </div>
+
+   <div class="row">
+        {% for suite in Rooms|slice:'4' %}
+        <div class="col-lg-6" data-scroll-reveal="enter from the bottom after 0.4s">
+            <div class="faculty-div">
+                 <center>
+                  <img src="{{suite.thumbnail.url}}" class="img-rounded img-responsive"
+                  style="width:500px; height: 300px;" />
+                 </center>
+                   <h3 >{{suite.Room_type}} </h3>
+                 <hr />
+                     {% for pop in suite.Room_pop.all %}
+                          {% if forloop.last %}
+                           <p class="h5"><b><i class="label label-primary">CAPACITY:</i>&emsp;{{pop}}/Room<br />
+                          {% endif %}
+                      {% endfor %}
+                          <br />
+                        <i class="label label-primary">PRICE:</i>&emsp;€{{suite.price}}/Day</b>
+                      </p>
+                           <p>{{suite.Descrition}}</p>
+                           Share&emsp;<i class="fa fa-share"></i>&emsp;
+                           <span class="h2">                             
+                              <i class="btn btn-primary btn-xs fa fa-facebook"></i> &emsp;&emsp;
+                              <i class="btn btn-warning btn-xs fa fa-instagram"></i>&emsp;&emsp;
+                              <i class="btn btn-primary btn-xs fa fa-linkedin"></i>&emsp;&emsp;
+                              <i class="btn btn-info btn-xs fa fa-twitter"></i>
+                           </span>
+                          <hr />
+                      </div>
+                   </div>
+                  {% endfor %}
+              </div>
+           </div>
+      </div>
+
+
+          <div id="GALLARY" class="container set-pad" >
+            <div class="row text-center">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                    <h1 data-scroll-reveal="enter from the bottom after 0.2s"  class="header-line">GALLERY </h1>
+                    <p data-scroll-reveal="enter from the bottom after 0.3s" >
+                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                       Aenean commodo.
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                       Aenean commodo.
+                    </p>
+                </div>
+            </div>
+          <div class="row">
+                <div class="col-lg-3  col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.4s">
+                    <div class="about-div">
+                    <img src="{% static 'assets/img/gallary/interiors.jpg'%}" class="img-rounded img-responsive"
+                  id="gallary-images" />
+                  <h3 >INTERIORS</h3>
+                <hr />
+                      <hr />
+               <a href="/gallery/" class="btn btn-primary btn-sm">See More..</a>
+               </div>
+                  </div>
+                  <div class="col-lg-3  col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.5s">
+                    <div class="about-div">
+                    <img src="{% static 'assets/img/gallary/bar.jpg'%}" class="img-rounded img-responsive"
+                  id="gallary-images" />
+                  <h3 >BAR</h3>
+                <hr />
+                      <hr />
+                  <a href="/gallery/" class="btn btn-primary btn-sm">See More..</a>
+               </div>
+                  </div>
+                <div class="col-lg-3  col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.6s">
+                    <div class="about-div">
+                    <img src="{% static 'assets/img/gallary/rest.png'%}" class="img-rounded img-responsive"
+                  id="gallary-images" />
+                  <h3 >RESTAURANT</h3>
+                <hr />
+                      <hr />
+                  <a href="/gallery/" class="btn btn-primary btn-sm">See More..</a>
+               </div>
+                  </div>
+                  <div class="col-lg-3  col-md-4 col-sm-4" data-scroll-reveal="enter from the bottom after 0.6s">
+                   <div class="about-div">
+                   <img src="{% static 'assets/img/gallary/garden.jpg'%}" class="img-rounded img-responsive"
+                  id="gallary-images" />
+                 <h3 >GARDEN</h3>
+               <hr />
+                     <hr />
+                 <a href="/gallery/" class="btn btn-primary btn-sm">See More..</a>
+              </div>
+                 </div>
+              </div>
+            </div>
+
+    <div id="contact-sec"   >
+           <div class="overlay">
+ <div class="container set-pad">
+      <div class="row text-center">
+                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                     <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line" >CONTACT US  </h1>
+                     <p data-scroll-reveal="enter from the bottom after 0.3s">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                      </p>
+                 </div>
+             </div>
+
+           <div class="row set-row-pad"  data-scroll-reveal="enter from the bottom after 0.5s" >
+                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control "  required="required" placeholder="Your Name" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control " required="required"  placeholder="Your Email" />
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" required="required" class="form-control" style="min-height: 150px;" placeholder="Message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info btn-block btn-lg">CONTACT</button>
+                        </div>
+                    </form>
+                </div>
+               </div>
+                </div>
+          </div>
+       </div>
+
+
+{% endblock%}

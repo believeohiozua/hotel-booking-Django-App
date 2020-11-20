@@ -1,0 +1,58 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %} 
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+    <div id="contact-sec"   >
+           <div class="overlay">
+ <div class="container set-pad">
+      <div class="row text-center">
+                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+                     <h1 data-scroll-reveal="enter from the bottom after 0.1s" class="header-line" >RESERVATION CHECKING PAGE</h1>
+                     <p data-scroll-reveal="enter from the bottom after 0.3s">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                         Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                        Aenean commodo.
+                         </p>
+                 </div>
+
+             </div>
+             <!--/.HEADER LINE END-->
+           <div class="row set-row-pad"  data-scroll-reveal="enter from the bottom after 0.5s" >
+
+
+                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                     <form action="{% url 'hotel-list' %}" class="search-form">  
+                      <center>
+                      <div class="form-group">
+                          <label for="date_from">From</label>                        
+                          <input class="form-control text-center"  min="{{today}}" required="required" type="date" data-date-inline-picker="true" name="from" id="date_from" value="{{today}}"/> 
+                      </div>
+                      <div class="form-group">
+                           <label for="date_to">To</label>           
+                             <input class="form-control text-center" required="required" type="date" name="to" id="date_to" value="{{nextday}}" />
+                      </div>
+                           <label for="pop_no">Number of Guest</label>
+                        <div class="form-control">
+                                  
+
+                                  <select name="q" id="pop_no">
+                                      {% for pop in pop %}
+                                        <option value="{{pop}}">{{pop}}</option>
+                                      {% endfor %}
+                                  </select>
+                        </div>
+                        <br /><br /><br />
+                          <div class="form-group">
+                              <button type="submit" class="btn btn-info btn-sm">SUBMIT REQUEST</button>
+                          </div>
+                    </center>
+                    </form>
+                </div>
+               </div>
+                </div>
+          </div>
+       </div>
+{% endblock %}

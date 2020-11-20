@@ -1,0 +1,187 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content  %}
+<style type="text/css">
+	#profile-image{
+		width: 300px;
+		height:200px;
+	}
+	.pad-this{
+		padding-right: 400px;		
+	}
+	#profile-detail-image{
+		width:300px;
+		height:200px;		
+	}
+	@media screen and (max-width:700px){
+		#profile-image{
+		width: 80%;
+		height:80%;
+	}
+		.pad-this{
+		padding-right: -0px;
+		}
+		#profile-detail-image{
+		width:80%;
+		height:80%;		
+		}
+	}
+</style>
+{% if profile.user == request.user%}
+<center>
+<div class="container well" style="padding-top: 100px;">
+	<div class="row">		
+		 <div class="col-md-6 col-lg-offset-1">           
+            <span class="story-img" style="outline: 0px ridge #152c35;">
+                {% if profile.photo %}
+                <img src="{{ profile.photo.url}}" id="profile-image" class="img-rounded img-responsive" />
+                  {% else %}
+                  <img src="{% static 'assets/img/avatar.jpg' %}" id="profile-image" class="img-rounded img-responsive"/>
+                  {% endif %}
+            </span><br>                    
+             <span class="h5 text-center" style="color:#152c35"><strong class="h2"><b>{{ profile.user.username }}</b> </strong></span>             
+		</div>
+		
+		<div class="col-lg-4"> 
+          <table>       
+                <tr>
+                  {% if profile.name %}
+                    <td class="h1"><span class="fa fa-user" style="color:#152c35;">&ThinSpace;</td>&emsp;                           
+                    <td style="color:#152c35"><strong class="h2"><b>{{ profile.name }}</b></strong> </td>
+                  {% endif %}                                        
+                </tr>               
+
+                <tr>
+                    <td class="h1"><span class="fa fa-envelope" style="color:#152c35;">&nbsp;</span> </td>&emsp;
+                    <td style="color:#152c35"><strong class="h2"><b>{{ profile.user.email }}</b></strong></td>
+                </tr> 
+                 <tr>
+                   {% if profile.name %}
+                    <td class="h1"><span class="fa fa-map-marker" style="color:#152c35;">&nbsp;</span> </td>&emsp;
+                    <td style="color:#152c35"><strong class="h2"><b>{{ profile.location }}</b></strong></td>
+                     {% endif %}            
+                </tr> 
+                <tr>
+                  
+                    <td class="h1"><span class="fa fa-edit" style="color:#152c35;">&nbsp;</span> </td>&emsp;
+                    <td style="color:#152c35"><strong class="h2"><a href="{% url 'profile-update' pk=profile.pk %}" class="btn btn-warning">Edith Profile</a></strong></td>                    
+                </tr>       
+                <tr>
+                  <td class="h1"><span class="fa fa-trash-o" style="color:#152c35;">&nbsp;</span> </td>&emsp;
+                  <td><button class="btn btn-danger btn-xs" onclick="document.getElementById('answer').innerHTML = 'Are You Sure?'; ">Delete Profile</button></td>
+                 <td><a id="answer" href="{% url 'profile-delete' pk=profile.pk %}" class="label label-danger"></a></td>   
+               </tr>                               
+          </table>
+		</div>
+	</div>
+</div>
+</center>
+
+{% for reservation in reservations|slice:"1" %}
+{% if reservation.client.user == profile.user and profile.user == request.user and reservation.Room_status != 'Avalible' %}
+
+  <h1 class="text-center">YOUR RESERVATIONS</h1>
+
+{% endif %}
+{% endfor %}
+{% for reservation in reservations %}
+{% if reservation.client.user == profile.user and profile.user == request.user and reservation.Room_status != 'Avalible' %}
+
+
+			
+<div class="container well">
+       <div class="row">
+           <center class="col-md-6">                    
+            {% if reservation.thumbnail %}
+            <img src="{{ reservation.thumbnail.url }}" class="img-rounded img-fluid post-list-img" id="profile-detail-image"/>
+            {% else %}
+            <img src="{% static 'images/badge.png' %}" class="img-rounded img-fluid post-list-img" id="profile-detail-image"/>
+            {% endif %}
+                            
+                     
+              </center>
+              <div class="col-md-3">
+              	<h4><u>Description</u></h4>
+              	{{reservation.Descrition}}
+              </div>
+              <div class="col-md-3 h5">
+
+                <table class="">
+                          <p class="">
+                          <tr class=""><b class="">Room Number:</b></tr>&emsp;&emsp;&emsp;&nbsp;
+                         
+                          <tr class="">{{reservation.Room_number}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="">Room Type:</b></tr>
+                          &emsp;&emsp;&emsp;&emsp;&emsp;
+                          <tr class=""> {{reservation.Room_type}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="">Check In Date:</b></tr>
+                          &emsp;&emsp;&emsp;&ensp;
+                          <tr class=""> {{reservation.Reserved_from}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="">Check Out Date:</b></tr>
+                          &emsp;&emsp;&ensp;
+                          <tr class=""> {{reservation.Reserved_to}} </tr><br /></p>
+
+   
+                           <p>
+                          <tr class=""><b class="">Status:</b></tr>
+                           &emsp;&emsp;&ensp;&emsp;&emsp;&emsp;&emsp;&ensp;
+                           <tr class="">
+                          {% if reservation.Room_status == 'Confirmed' %}                         
+                           <b class="text-success">PayMent Confirmed</b> 
+                          {% elif reservation.Room_status == 'Checked_In' %}
+                           <b class="text-warning">Checked In</b>
+                          {% else %}
+                           <b class="text-danger">Checked In</b>
+                          {% endif %}
+                        </tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="">Amount:</b></tr>
+                          &emsp;&emsp;&ensp;&emsp;&emsp;&emsp;&ensp;
+                          <tr class=""> €{{reservation.Total_Amount}} </tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="">Check In Pin:</b></tr>
+                          &emsp;&emsp;&ensp;&emsp;&emsp;&emsp;&ensp;
+                          <tr class=""> {{reservation.Reservation_ticket|upper}} </tr><br /></p>
+
+                  </table>      
+
+                  
+              </div>
+
+     </div>
+</div>
+<hr />
+{% else %}
+
+
+<hr />
+    <h1 class="text-center">YOU CURRENTLY HAVE NO RESERVATION</h1>
+<hr />   
+  <center>
+      <a href="/" class="label label-info"><i class="btn btn-info btn-xl">Make A Reservation Now</i> </a>
+  </center>
+<hr />
+{% endif %}
+{% empty %}
+<hr />
+    <h1 class="text-center">YOU CURRENTLY HAVE NO RESERVATION</h1>
+<hr />   
+  <center>
+      <a href="/search/" class="label label-info"><i class="btn btn-info btn-xl">Make A Reservation Now</i> </a>
+  </center>
+<hr />
+{% endfor %}
+
+{% else %}
+<center style="padding: 150px;"><a href="/profile/{{ request.user.profile.pk }}" class="h1 btn btn-info btn-lg">Your Dashboad</a></center>
+{% endif %}
+{% endblock%}

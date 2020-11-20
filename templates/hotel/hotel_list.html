@@ -1,0 +1,77 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content  %}
+
+{% for rooms in hotel_list|slice:"1" %}
+<div id="" class="container">   
+        <div class="row text-center">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h1 data-scroll-reveal="enter from the bottom after 0.2s"  class="header-line">AVALIBLES ROOMS FOR YOUR BOOKING </h1>
+                <h5 data-scroll-reveal="enter from the bottom after 0.3s" >
+                    The following Rooms are avalible for booking <h4>From <b>{{from}}</b> To <b>{{to}}</b></h4>
+                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                   Aenean commodo.
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                   Aenean commodo.
+                    </h5>
+            </div>
+        </div>
+   
+</div>
+ {%empty%} 
+ <div id="features-sec" class="container set-pad">  
+        <div class="row text-center">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h1 data-scroll-reveal="enter from the bottom after 0.2s"  class="header-line">IT SEEM WE ARE ALL BOOKED UP FOR THIS CATEGORY! </h1>
+                <p data-scroll-reveal="enter from the bottom after 0.3s" >
+                  <h4>From <b>{{from}}</b> To <b>{{to}}</b></h4>
+                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                   Aenean commodo.
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                   Aenean commodo.
+                    </p>
+                      <center>
+                        <a href="/search/" class="label label-info"><i class="btn btn-info btn-xl">PLSEASE CHECK OTHER CATEGORIES</i> </a>
+                    </center>
+                    <br />
+            </div>
+        </div> 
+</div> 
+{% endfor %}
+ <div class="container" style="background: radial-gradient(circle, #3f51b500 0%, #3F51B5 100%);">
+            <div class="row">           
+             
+{% for rooms in hotel_list %} 
+{% if rooms.Room_status == 'Avalible' and not room.Reservation_ticket %}      
+   
+              <div class="col-lg-4 well" style="padding-top: 30px; padding-bottom: 30px;">
+                <a href="{{ rooms.get_absolute_url }}">          
+                    {% if rooms.thumbnail %}
+                    <img src="{{ rooms.thumbnail.url }}" class="img-rounded img-fluid img-responsive" id="list-image"/>
+                    {% else %}
+                    <img src="{% static 'images/badge.png' %}" class="img-rounded img-fluid img-responsive" id="list-image"  />
+                    {% endif %}
+                </a>               
+                   <center class="text-left ">     
+               <hr />
+                    <b class="h3">{{rooms.Room_type|upper}}: {{rooms.Room_number}}</b>                   
+                    <p class="" style="">{{rooms.Descrition}}</p>
+                    <i class="h5"><b>Price for {{total_days}} Day{{total_days|pluralize}}:</b>
+                         <h4>€{% widthratio rooms.price 1 total_days %}</h4> </i>       
+                    <b> @ €{{rooms.price}}</b>/day 
+                    <div class="text-info">
+                        <button  class="btn-primary btn-xs">
+                             <a href="{{rooms.get_absolute_url}}"  style="color:aliceblue">Book Now!</a>
+                        </button>
+                    </div>                    
+                    </center>  
+             </div>   
+ {% endif %}                
+{% endfor %}
+
+<!--Pagniation-->
+           
+        </div>
+    </div> 
+{% endblock%}

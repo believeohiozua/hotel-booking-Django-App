@@ -1,0 +1,226 @@
+﻿{% load staticfiles %}
+<!-- BOOTSTRAP CORE STYLE CSS -->
+<link href="{% static 'assets/css/bootstrap.css'%}" rel="stylesheet" />
+<!-- FONT AWESOME CSS -->
+<link href="{% static 'assets/css/font-awesome.min.css'%}" rel="stylesheet" />
+<!-- FLEXSLIDER CSS -->
+<link href="{% static 'assets/css/flexslider.css'%}" rel="stylesheet" />
+<!-- CUSTOM STYLE CSS -->
+<link href="{% static 'assets/css/style.css'%}" rel="stylesheet" />    
+<!-- Google	Fonts -->
+<link href="{% static 'assets/css/font.css'%}" rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+<script src="{% static 'assets/js/scrollReveal.js'%}"></script> 
+<style type="text/css">
+
+#list-image{
+    position: relative; 
+    width: 400px;
+    height:270px;
+}
+@media screen and (max-width:700px){
+    #list-image{
+    position: relative;
+    width: 100% ;
+    height:100%;
+}
+}
+#detail-image{
+    position: relative; 
+    width: 500px;
+    height:300px;
+}
+@media screen and (max-width:700px){
+    #detail-image{
+    position: relative;
+    width: 100% ;
+    height:100%;
+}
+}
+
+</style>
+<style type="text/css">
+ /**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  box-sizing: border-box;
+
+  height: 40px;
+
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}      
+
+
+/*navbar*/
+#menu {
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(41,2,40,1) 100%);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    min-height: 70px;
+}
+/*top background*/
+.home-sec .overlay {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(195,67,209,0.4990371148459384) 66%, rgba(0,212,255,1) 100%);
+    min-height: 500px;
+}
+/*footer*/
+#footer {
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(41,2,40,1) 100%);
+    background-color: #E91E63;
+    text-align: right;
+    color: #fff;
+    font-size: 15px;
+}
+
+.tag-line {
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, #3f51b500 0%, #3F51B5 100%);
+    color: #eee;
+  }
+
+     #slide-img{
+    width: 450px;
+    height: 260px;
+  }
+    /* The popup form - hidden by default */
+     .form-popup {
+        display: none;  
+        right: 0px;
+        border: 1px solid #f1f1f1;
+        z-index: 9; 
+        background: radial-gradient(circle, #3f51b500 0%, #3F51B5 100%);
+        
+    }
+    .search_section{
+        position: relative;
+        top: 20px;
+    }
+    #date_from, #date_to, #pop_no{
+        line-height: 20px;
+        color: black;
+    }
+    #index-profile{
+      position: relative;
+      left:150px; 
+      top:-70px;
+    }
+    #index-profile img{
+      width: 150px;
+      height: 150px ;
+      position: relative;
+      left:130px; 
+      top:;
+    }
+    .from-form{
+      position: relative;
+      right:86px;
+    }
+
+@media screen and (max-width:700px){
+    #index-profile, #index-profile img{
+     left:-0px; 
+     top:-20px;
+     padding-left: 10px;
+
+   }
+}
+#gallary-images{
+    width: 200px;
+    height: 150px;
+
+    }
+  .move-me h3{
+    background: radial-gradient(circle, #3f51b500 0%, #3F51B5 100%);
+  }
+
+  #index-profile p, #main-section a{
+   color: #A7DD3C;
+  text-shadow: 2px 0 0px #800040, 3px 2px 0px rgba(77,0,38,0.5), 3px 0 3px #FF002B, 5px 0 3px #800015, 6px 2px 3px rgba(77,0,13,0.5), 6px 0 9px #FF5500, 8px 0 9px #802A00, 9px 2px 9px rgba(77,25,0,0.5), 9px 0 18px #FFD500, 11px 0 18px #806A00, 12px 2px 18px rgba(77,66,0,0.5), 12px 0 30px #D4FF00, 14px 0 30px #6A8000, 15px 2px 30px rgba(64,77,0,0.5), 15px 0 45px #80FF00, 17px 0 45px #408000, 17px 2px 45px rgba(38,77,0,0.5)
+  }
+
+  #main-section{
+      position: relative;
+      top:30px;
+    }
+
+   #room-slide {
+      position: relative; 
+      top:-90px;
+    }
+
+  #menu{
+    border-radius: 3px;
+    border-top: solid 2px #eee;
+    border-bottom: solid 2px #eee;"
+  }
+
+  #pad-form{
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+.section-text{
+  font-size: 20px;
+  }
+  @media screen and (max-width:700px){
+  .section-text{
+    font-size: 15px;
+    }
+  }
+  .pics{
+    		height: 100px;
+    		border: 1px solid blue;
+    		margin: 10px;
+    	}
+    	.loader{
+    		position: fixed;
+    		z-index: 99;
+    		top:0;
+    		left: 0;
+    		width: 100%;
+    		height: 100%;
+    		background-color: #dee1e2;
+    		display: flex;
+    		justify-content: center;
+    		align-items: center;
+    	}
+    	.loader>img{
+    		width: 400px;
+    	}
+
+    	.loader.hidden{
+    		animation: fadeOut 1s;
+    		animation-fill-mode: forwards;
+    	}
+    	@keyframes fadeOut {
+    		100%{opacity: 0;
+    		 visibility: hidden;
+    	}
+    }
+</style>  

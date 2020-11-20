@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<div class="navbar navbar-inverse navbar-fixed-top" id="menu">
+    <center class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img class="logo-custom img-responsive img-circle" src="{% static 'assets/img/logo.png' %}" alt=""  /></a>
+        </div>
+        <div class="navbar-collapse collapse move-me">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/">HOME</a></li>
+                 <li><a href="/#faculty-sec">SUITE</a></li>
+                <li><a href="/#GALLARY">GALLARY</a></li>
+                <li class "dropdown">
+                <a href = "" class = "dropdown-toggle" data-toggle= "dropdown" role = "button" aria-haspopup = "true" aria-expanded= "false">
+                ACCOUNT <span class = "caret"></a>
+                <ul class = "dropdown-menu">
+                {% if not request.user.is_authenticated %}
+                    <li><a href="{% url 'account_signup' %}">SIGN UP</a></li>
+                    <li><a href="{% url 'account_login' %}?next={{request.path}}">SIGN IN</a></li>
+                    {% else %}
+                    <li><a href="{% url 'account_logout' %}">SIGN OUT</a></li>
+                    {% endif %}
+                </ul>
+                </li>
+                 <li><a href="/#contact-sec">CONTACT</a></li>
+            </ul>
+        </div>
+       
+    </center>
+</div>
+  <!--NAVBAR SECTION END-->

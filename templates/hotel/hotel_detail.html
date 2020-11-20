@@ -1,0 +1,197 @@
+{% extends 'base/content_base.html' %}
+{% load staticfiles %}
+{% block script%}
+{% endblock %} 
+{% load crispy_forms_tags %}
+{% block content  %}
+
+{% if hotel.Room_status == 'Avalible' %}
+<h1></h1>
+<h1 class="">
+       <p class="header-line text-center h1">BOOKING PAGE</p>
+</h1> 
+<p class="text-center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. enean commodo.<br />
+Lorem ipsum dolor sit amet,consectetuer <br />
+adipiscing elit. Aenean commodo</p>
+<div class="container well">
+       <div class="row">
+              <div class="col-md-6 col-md-offset-1">              
+                {% if hotel.thumbnail %}
+                <img src="{{ hotel.thumbnail.url }}" class="img-rounded img-fluid post-list-img" id="detail-image"/>
+                {% else %}
+                <img src="{% static 'images/badge.png' %}" class="img-rounded img-fluid post-list-img" id="detail-image"/>
+                {% endif %}
+              </div>
+              <style type="text/css">
+                .pay-param i{
+
+                }
+              </style>
+              <div class="h3 col-md-5">
+                                    
+                        <table>
+                          <p class="">
+                          <tr class=""><b class="">Room Number:</b></tr>&emsp;&nbsp;
+                         
+                          <tr class="">{{hotel.Room_number}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="">Room Type:</b></tr>
+                          &emsp;&emsp;&emsp;
+                          <tr class=""> {{hotel.Room_type}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="text-left">From:</b></tr>
+                          &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;
+                          <tr class=""> {{from}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="text-left">To:</b></tr>
+                          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
+                          <tr class="">{{to}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="text-left">Duration:</b></tr>
+                          &emsp;&emsp;&emsp;&nbsp;&ensp;
+                          <tr class="">{{duration}}Day{{duration|pluralize}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="text-left">Status:</b></tr>
+                          &emsp;&emsp;&emsp;&emsp;&ensp;&nbsp;&nbsp;&nbsp;
+                          <tr class="">{{hotel.Room_status}}</tr><br /></p>
+
+                          <p>
+                          <tr class=""><b class="text-left">Amount:</b></tr>
+                          &emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+                          <tr class=""><u>€{% widthratio hotel.price 1 duration %}</u></tr></p>
+                        </table>                                
+                    </div>        
+         </div>
+    </div>
+ <hr />     
+ <style type="text/css">
+   #card-element{
+   
+    border:  #1c2b4b 1px solid;
+    color: black;
+   }
+ </style>
+<center class="container">
+    <div class="row">
+          <div class="col-md-6 col-md-offset-3">           
+                    <script src="https://js.stripe.com/v3/"></script>
+                     <form action="." method="post" id="payment-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                       
+                         <div class="form-row">
+                           <label for="card-element">
+                             <p class="h3"></strong>Make payment</strong></p>
+                             <p class="h5 text-center">Credit or debit card</p>
+                           </label>
+                           <div id="card-element">
+                             <!-- A Stripe Element will be inserted here. -->
+                           </div>
+                           <!-- Used to display form errors. -->
+                           <div id="card-errors" role="alert"></div>
+                         </div>
+                         <br />                         
+                         <input type="hidden" name="Reserved_from" id="id_Reserved_from" value="{{from}}" readonly/>
+                         <input type="hidden" name="Reserved_to" id="id_Reserved_to" value="{{to}}" readonly/>
+                         <input type="hidden" name="Total_Amount" maxlength="200" id="id_Total_Amount" value="{% widthratio hotel.price 1 duration %}" readonly/>                       
+                          <input type="hidden" name="hotel_id" id="hotel_id" value="{{hotel.id}}" readonly/>
+                         <center><input type="submit" class="btn btn-info text-center" value ="Pay" /></center>
+                     </form>
+            </div>
+      </div>
+</center>
+
+<hr>
+<script type="text/javascript">
+  
+  // Create a Stripe client.
+var stripe = Stripe('{{publishKey}}');
+// Create an instance of Elements.
+var elements = stripe.elements();
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+var style = {
+  base: {
+    color: '#32325d',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+// Create an instance of the card Element.
+var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>.
+card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+// Handle form submission.
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // Inform the user if there was an error.
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      // Send the token to your server.
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+// Submit the form with the token ID.
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  form.submit();
+}
+</script>
+
+
+
+
+{% else %}
+<ul> 
+    <center class="top10" style="position:relative; padding-bottom: 7vw; bottom: 0; padding-top: 70px;">
+    <p class="well h3">
+      THIS ROOM IS CURRENLY NOT AVALIBLE <br /> SEARCH AND BOOK A ROOM <br >
+        <a class="btn btn-info btn-lg" href="/search/">HERE</a>
+  </p>
+    
+    
+</center>
+</ul> 
+
+{% endif %}
+{% endblock%}
